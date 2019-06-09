@@ -1,5 +1,5 @@
 function getData(){
-        $('#action').html("Authenticating...");
+        document.getElementById('action').src = "/static/images/ruedita.gif";
         var username = $('#username').val();
         var password = $('#password').val();
         var message = JSON.stringify({
@@ -15,11 +15,18 @@ function getData(){
             dataType:'json',
             success: function(response){
                 //alert(JSON.stringify(response));
-                $('#action').html(response['statusText']);
+
             },
             error: function(response){
                 //alert(JSON.stringify(response));
-                $('#action').html(response['statusText']);
+                if (response['status']==401){
+                document.getElementById('action').src = "/static/images/dislike.png";
+                }else{
+                document.getElementById('action').src = "/static/images/ok.png";
+                var a=username;
+                var c="http://127.0.0.1:8081/chat/"+a;
+                window.location=c;
+                }
             }
         });
     }
